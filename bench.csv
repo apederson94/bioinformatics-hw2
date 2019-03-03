@@ -1,5 +1,5 @@
 algorithm,language,seconds,score,m,n
-needleman-wunsch,c,0.891875,250,100000,250
-smith-waterman,c,0.888220,250,100000,250
-needleman-wunsch,python,1.811633,250,100000,250
-smith-waterman,python,45.048084,100000,250
+needleman-wunsch,c,0.001169,26,100,100
+smith-waterman,c,0.001128,41,100,100
+needleman-wunsch,python,0.000528,26,100,100
+smith-waterman,python,0.035884,41,100,100

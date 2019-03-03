@@ -263,6 +263,7 @@ int main(int argc, char const *argv[])
         -1, -1, -1, 2,
         };
 
+    //generates a random sequence and puts it in a file
     //generateRandomSequence();  
 
     //only off by a handful now
@@ -310,15 +311,6 @@ int main(int argc, char const *argv[])
 
     printf("Score: %d\n", new2->score);
     printf("Time: %lf\n", secDiff + (usecDiff/1000000));
-
-    /* for (int i = 0; i < 100; i++)
-    {
-        for (int j = 0; j < 100; j++)\
-        {
-            printf("%d ", new->scoreMatrix[j + (i * 100)]);
-        }
-        printf("\n");
-    } */
 
     free(new2->traceMatrix);
     free(new2->scoreMatrix);
