@@ -27,24 +27,21 @@ class BloomFilter:
 
     def find(self, element):
         if self.filter[self.__hash1(element, self.size)] == 1:
-            print("maybe")
+            print("match")
         elif self.filter[self.__hash2(element, self.size)] == 1:
-            print("maybe")
+            print("match")
         else:
             print("not in filter")
 
-bloom = BloomFilter(1000)
-
-bloom.add("YELLOW")
-
-bloom.find("YELLOW")
-
-bloom.print()
-
-
-
-
-
-
 if __name__ == "__main__":
-    pass
+    bloom = BloomFilter(1000)
+
+    bloom.add("YELLOW")
+
+    print("YELLOW: ")
+
+    bloom.find("YELLOW")
+
+    print("PINK: ")
+
+    bloom.find("PINK")
