@@ -30,56 +30,40 @@ class UPGMA:
         tmpMatrix = [[0 for x in range(matDims - 1)] for y in range(matDims - 1)]
         tmpClusterCount = [[1 for x in range(matDims - 1)] for y in range(matDims - 1)]
 
-        tmpPos = 1
-
-        score = 0
-
-        """ for num in range(matDims):
-            if (num == 0) | (num == minCol):
-                continue
-            else:
-                cluster1 = clusterCount[minRow][num]
-                cluster2 = clusterCount[minCol][num]
-                score = ((self.matrix[minRow][num] * cluster1) + (self.matrix[minCol][num] * cluster2))/(cluster1 + cluster2)
-                tmpMatrix[minRow][tmpPos] = score
-                tmpMatrix[tmpPos][minRow] = score
-                if minRow != tmpPos:
-                    tmpClusterCount[minRow][tmpPos] += 1
-                    tmpClusterCount[tmpPos][minRow] += 1
-                else:
-                    tmpClusterCount[minRow][tmpPos] += 1
-                tmpPos += 1 """
-
         tmpRow = 0
         tmpCol = 1
 
-        missing = []
+        if ((minCol != 0) & (minRow != 0)):
+            tmpCol = 0
 
         for r in range(matDims):
             for c in range(matDims):
-                if ((r == c) | (r == minCol) | (c == minRow) | ((r == minRow) & (c == minRow)) | ((r == minRow) & (c == minCol)) | ((r == minCol) & (c == minRow)) | ((r == minCol) & (c == minCol))):
+                if ((r == c) | (r == minCol) | (c == minRow) | ((r == minRow) & (c == minRow)) | ((r == minRow) & (c == minCol)) | ((r == minCol) & (c == minRow)) | ((r == minCol) & (c == minCol)) | (c == minCol)):
                     continue
                 elif ((r == minRow)):
+                    #cluster count for column/row being used
                     cluster1 = clusterCount[minRow][c]
                     cluster2 = clusterCount[minCol][c]
+                    
+                    #setting temporary matrix values
                     tmpMatrix[minRow][tmpCol] = ((self.matrix[minRow][c] * cluster1) + self.matrix[minCol][c])/(cluster1 + cluster2)
+                    tmpMatrix[tmpCol][minRow] = ((self.matrix[minRow][c] * cluster1) + self.matrix[minCol][c])/(cluster1 + cluster2)
+
+                    #updating cluster count for next iteration
                     tmpClusterCount[minRow][tmpCol] += 1
+
+                    #iterating tmpCol
                     tmpCol += 1
                     if (tmpCol == self.__matDims - 1):
                         tmpRow += 1
                         tmpCol = 0
-                elif((c == minCol)):
-                    cluster1 = clusterCount[r][minRow]
-                    cluster2 = clusterCount[r][minCol]
-                    tmpMatrix[tmpRow][minRow] = ((self.matrix[r][minCol] * cluster1) + (self.matrix[r][minRow] * cluster1))/(cluster1 + cluster2)
-                    tmpClusterCount[tmpRow][minRow] += 1
-                    tmpRow += 1
+        
+        missing = []
 
         for r in range(matDims - 1):
             for c in range(matDims - 1):
                 if ((r != c) & (tmpMatrix[r][c] == 0.0)):
                     missing.append((r, c))
-
         
         for r in range(matDims):
             for c in range(matDims):
